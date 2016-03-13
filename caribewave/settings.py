@@ -11,3 +11,13 @@ MQTT_SENSORS_TOPIC = os.getenv(
 MQTT_HOST_DEBUG = "test.mosquitto.org"
 
 DEBUG = ENV is not "prod"
+
+CACHE_DIR = os.getenv('CARIBEWAVE_CACHE_DIR', '/tmp/caribewave')
+
+PHEROMON_API_BASE = os.getenv(
+    'CARIBEWAVE_PHEROMON_API_BASE')
+
+PLACES_FILE = os.path.join(
+    CACHE_DIR,
+    'places.json'
+)
