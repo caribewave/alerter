@@ -2,3 +2,5 @@ Flask
 Flask-API
 flake8
 paho-mqtt
+pytest
+mock
