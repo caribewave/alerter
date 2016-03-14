@@ -3,7 +3,7 @@ import requests
 import json
 
 import settings
-from cache import make_cache_dir
+from utils import make_cache_dir
 
 
 class Places(object):

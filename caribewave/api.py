@@ -4,6 +4,8 @@ import json
 from flask.ext.api import FlaskAPI
 
 import settings
+from events import list_events_dates
+
 
 app = FlaskAPI(__name__)
 
@@ -19,6 +21,11 @@ def places():
         f = open(settings.PLACES_FILE)
         return json.loads(f.read())
     return []
+
+
+@app.route("/events/dates", methods=['GET'])
+def events_dates():
+    return list_events_dates()
 
 
 if __name__ == "__main__":

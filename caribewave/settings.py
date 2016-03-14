@@ -9,6 +9,7 @@ MQTT_SENSORS_TOPIC = os.getenv(
     'measurement/#')
 
 MQTT_HOST_DEBUG = "test.mosquitto.org"
+MQTT_SENSORS_TOPIC_DEBUG = "measurement/sender"
 
 DEBUG = ENV is not "prod"
 
@@ -20,4 +21,11 @@ PHEROMON_API_BASE = os.getenv(
 PLACES_FILE = os.path.join(
     CACHE_DIR,
     'places.json'
+)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+EVENTS_DIR = os.path.join(
+    CACHE_DIR,
+    'events'
 )
