@@ -33,3 +33,7 @@ EVENTS_DIR = os.path.join(
     CACHE_DIR,
     'events'
 )
+
+AWS_REGION = os.getenv('AWS_REGION')
+SNS_APP_ID = os.getenv('SNS_APP_ID')
+SNS_ALERT_TOPIC = os.getenv('SNS_ALERT_TOPIC')
