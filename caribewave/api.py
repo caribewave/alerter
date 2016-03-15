@@ -29,4 +29,6 @@ def events_dates():
 
 
 if __name__ == "__main__":
-    app.run(debug=settings.DEBUG)
+    app.run(
+        port=8080,
+        debug=settings.DEBUG)

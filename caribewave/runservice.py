@@ -1,6 +1,7 @@
 import sys
 
-from services import sender, listener
+from services import (
+    sender, listener, alerting)
 
 
 if __name__ == "__main__":
@@ -9,6 +10,8 @@ if __name__ == "__main__":
         mod = sender
     elif service == "listener":
         mod = listener
+    elif service == "alerting":
+        mod = alerting
     else:
         raise ValueError('Service not found')
 
