@@ -1,4 +1,10 @@
 import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TOP_DIR = '/'.join(BASE_DIR.split('/')[0:-1])
+if TOP_DIR not in sys.path:
+    sys.path.append(TOP_DIR)
 
 ENV = os.getenv('CARIBEWAVE_ENV', 'sandbox')
 
@@ -22,8 +28,6 @@ PLACES_FILE = os.path.join(
     CACHE_DIR,
     'places.json'
 )
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 EVENTS_DIR = os.path.join(
     CACHE_DIR,

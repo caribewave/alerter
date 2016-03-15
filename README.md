@@ -16,12 +16,12 @@ source venv/bin/activate
 ## Running listener
 
 ```
-python caribewave/listener.py
+python caribewave/runservice.py listener
 ```
 
 
 ## Sending fake data
 
 ```
-python caribewave/sender.py
+python caribewave/runservice.py sender
 ```

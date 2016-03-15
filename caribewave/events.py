@@ -1,6 +1,5 @@
 import os
 import json
-from datetime import datetime
 
 import settings
 
@@ -20,13 +19,13 @@ class EventsPersister(object):
     def persist(self):
         files = {}
         for event in self.events:
-            _dir =  os.path.join(
+            _dir = os.path.join(
                 settings.EVENTS_DIR,
                 event["date"][0:10],
                 event["date"][11:13]
             )
             filename = os.path.join(_dir, 'events.json')
-            if not filename in files:
+            if filename not in files:
                 if not os.path.exists(_dir):
                     os.makedirs(_dir)
                 files[filename] = open(filename, 'wa')

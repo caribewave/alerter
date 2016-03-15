@@ -2,8 +2,8 @@ import argparse
 import json
 
 import paho.mqtt.client as mqtt
-import settings
-from events import EventsPersister
+from caribewave import settings
+from caribewave.events import EventsPersister
 
 
 def get_sensor_uid_from_topic(topic):
@@ -20,17 +20,21 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(settings.MQTT_SENSORS_TOPIC_DEBUG)
     else:
         client.subscribe(settings.MQTT_SENSORS_TOPIC)
+    client.subscribe('cmdResult/#')
 
 
 def on_message(client, userdata, msg):
-    sensor_uid = get_sensor_uid_from_topic(msg.topic)
-    userdata["persister"].add_events(
-        json.loads(msg.payload),
-        sensor_uid=sensor_uid)
     print(msg.topic+" "+str(msg.payload))
+    if msg.topic.startswith('measurement'):
+        sensor_uid = get_sensor_uid_from_topic(msg.topic)
+        userdata["persister"].add_events(
+            json.loads(msg.payload),
+            sensor_uid=sensor_uid)
+    elif msg.topic.startswith(''):
+        pass
 
 
-def run(debug=True):
+def run(debug=False):
     userdata = {
         "debug": debug,
         "persister": EventsPersister()
@@ -48,18 +52,20 @@ def run(debug=True):
     else:
         print "Connect to {}".format(settings.MQTT_HOST)
         client.connect(settings.MQTT_HOST, 1883, 60)
-    # Blocking call that processes network traffic, dispatches callbacks and
-    # handles reconnecting.
-    # Other loop*() functions are available
-    # that give a threaded interface and a
-    # manual interface.
+
+    client.publish('b827eb7352d6', 'status', qos=0)
     client.loop_forever()
+    """
+    while True:
+        client.loop(timeout=100)
+        print 'Publish to status'
+        #client.publish('all', 'status', qos=0)
+    """
 
 
-if __name__ == "__main__":
+def get_argparser():
     parser = argparse.ArgumentParser(description='Run listener')
     parser.add_argument('--debug', action='store_const',
                         const=True,
                         help='Pop data on test.mosquitto.org')
-    args = parser.parse_args()
-    run(args.debug)
+    return parser
