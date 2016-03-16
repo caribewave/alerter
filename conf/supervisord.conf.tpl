@@ -28,10 +28,10 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [program:listener]
-command=python %(ENV_CARIBEWAVE_DIR)scaribewave/runservice.py listener
+command=python {{ caribewave_dir }}/runservice.py listener
 
 [program:api]
-command=python %(ENV_CARIBEWAVE_DIR)scaribewave/api.py
+command=python {{ caribewave_dir }}/api.py
 
 [program:alerting]
-command=python %(ENV_CARIBEWAVE_DIR)scaribewave/alerting.py
+command=python {{ caribewave_dir }}/runservice.py alerting
