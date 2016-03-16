@@ -1,4 +1,5 @@
 import sys
+import argparse
 
 from services import (
     sender, listener, alerting)
@@ -17,9 +18,10 @@ if __name__ == "__main__":
 
     if hasattr(mod, "get_argparser"):
         parser = getattr(mod, "get_argparser")()
-        parser.add_argument('service', type=str, help='Service name')
-        kwargs = vars(parser.parse_args())
-        del kwargs["service"]
-        getattr(mod, 'run')(**kwargs)
     else:
-        getattr(mod, 'run')()
+        parser = argparse.ArgumentParser(description='Run listener')
+
+    parser.add_argument('service', type=str, help='Service name')
+    kwargs = vars(parser.parse_args())
+    del kwargs["service"]
+    getattr(mod, 'run')(**kwargs)

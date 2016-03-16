@@ -2,7 +2,7 @@ import time
 
 from caribewave.alerting import Alert
 
-def run():
+def run(**kwargs):
     alert = Alert()
     while True:
         alert.call()
