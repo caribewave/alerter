@@ -34,14 +34,15 @@ class Alert(object):
 
         if alive_sensors and sorted(alive_sensors) == sorted(events_sensors):
             self.last_alert = datetime.utcnow()
-            self.prevent()
+            self.prevent(events_sensors)
 
-    def prevent(self):
+    def prevent(self, sensor_uids):
         print "All sensors active, send to SNS and MQTT"
         msg = "Seismic activity detected. Please find shelter promptly"
         sns.send_message(msg)
         payload = {
-            "message": msg
+            "message": msg,
+            "sensors_uids": sensor_uids
         }
         self.sensors.client.publish(
             'alert/general',
