@@ -1,9 +1,11 @@
 import os
 import requests
 import json
+import itertools
 
 import settings
 from utils import make_cache_dir
+from sensors import Sensors
 
 
 class Places(object):
@@ -13,7 +15,8 @@ class Places(object):
         Fetch the API to list the active sensors
         """
         self.places = []
-        self.sensor_uid_to_place = {}
+        self.sensors = []
+        self.synced = False
         if sync:
             self.sync()
 
@@ -27,15 +30,12 @@ class Places(object):
             make_cache_dir()
             f = open(settings.PLACES_FILE, 'w')
             self.places = resp.json()
-            self._make_idx()
+            self.sensors = list(itertools.chain(
+                *[k["sensor_uids"] for k in self.places]))
+            self.sensors = filter(lambda i: i is not None, self.sensors)
             f.write(json.dumps(self.places))
             f.close()
+        self.synced = True
 
     def count_sensors(self):
-        return sum(len(k['sensor_uids']) for k in self.places)
-
-    def _make_idx(self):
-        self.sensor_uid_to_place = {}
-        for place in self.places:
-            for uid in place["sensor_uids"]:
-                self.sensor_uid_to_place[uid] = place
+        return len(self.sensors)
