@@ -4,4 +4,5 @@ flake8
 paho-mqtt
 pytest
 requests
+boto
 supervisor
