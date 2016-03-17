@@ -1,7 +1,7 @@
 import time
-from datetime import datetime, timedelta
 
 from caribewave.alerting import Alert
+
 
 def run(**kwargs):
     alert = Alert()

@@ -52,7 +52,9 @@ def get_events(td=timedelta(minutes=10)):
     date_start = date_end - td
     print 'request files between {} and {}'.format(date_start, date_end)
     for date_hour in utils.date_hour_range(date_start, date_end):
-        f = utils.get_events_file_location(date_hour.isoformat(), create_directory=False)
+        f = utils.get_events_file_location(
+            date_hour.isoformat(),
+            create_directory=False)
         if os.path.exists(f):
             for line in utils.read_json_multiline(f):
                 d = utils.isodate_to_dt(line["date"])

@@ -35,10 +35,12 @@ def run(debug=False):
         "debug": debug,
         "persister": EventsPersister()
     }
-    client = mqtt.Client(userdata=userdata)
+    client = mqtt.Client(
+        client_id="alerter_listener",
+        userdata=userdata)
 
     if not debug:
-        client.username_pw_set(username="listener", password=settings.MQTT_PWD)
+        client.username_pw_set(username="pheroman", password=settings.MQTT_PWD)
     client.on_connect = on_connect
     client.on_message = on_message
 

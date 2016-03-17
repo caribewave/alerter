@@ -5,7 +5,6 @@ import itertools
 
 import settings
 from utils import make_cache_dir
-from sensors import Sensors
 
 
 class Places(object):

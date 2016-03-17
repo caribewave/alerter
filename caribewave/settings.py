@@ -2,13 +2,14 @@ import os
 import sys
 import json
 
+ENV = None
+
 
 def set_conf(filename):
     mod = sys.modules[__name__]
     json_conf = json.load(open(filename))
     for k, v in json_conf.iteritems():
         setattr(mod, k, v)
-
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOP_DIR = '/'.join(BASE_DIR.split('/')[0:-1])
@@ -31,13 +32,3 @@ MQTT_HOST_DEBUG = "test.mosquitto.org"
 MQTT_SENSORS_TOPIC_DEBUG = "measurement/sender"
 
 DEBUG = ENV is not "prod"
-
-PLACES_FILE = os.path.join(
-    CACHE_DIR,
-    'places.json'
-)
-
-EVENTS_DIR = os.path.join(
-    CACHE_DIR,
-    'events'
-)

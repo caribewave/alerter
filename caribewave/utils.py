@@ -19,16 +19,16 @@ def make_cache_dir():
 
 def get_events_file_location(isodate, create_directory=True):
     _dir = os.path.join(
-        settings.EVENTS_DIR,
+        settings.CACHE_DIR,
+        'events',
         isodate[0:10],
         isodate[11:13]
     )
-    if (create_directory and not
-        os.path.exists(_dir)):
+    if (create_directory and not os.path.exists(_dir)):
         print "Make dir", _dir
         os.makedirs(_dir)
     return os.path.join(_dir, 'events.json')
- 
+
 
 def read(location):
     f = open(location)

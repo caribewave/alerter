@@ -20,13 +20,15 @@ def on_message(client, userdata, msg):
 class Sensors(object):
 
     def __init__(self):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(client_id="alerter_status")
         self.client.on_connect = on_connect
         self.client.on_message = on_message
-        self.client.username_pw_set(username="listener", password=settings.MQTT_PWD)
+        self.client.username_pw_set(
+            username="pheroman",
+            password=settings.MQTT_PWD)
         print "Connect to {}".format(settings.MQTT_HOST)
         self.client.connect(settings.MQTT_HOST, 1883, 60)
-        
+
     def check(self, sensor_ids):
         """
         Check if `sensor_id` is active

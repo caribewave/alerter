@@ -25,7 +25,7 @@ def on_message(client, userdata, msg):
 
 
 def run(**kwargs):
-    client = mqtt.Client()
+    client = mqtt.Client(client_id="alerter_sender")
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(settings.MQTT_HOST_DEBUG, 1883, 60)
