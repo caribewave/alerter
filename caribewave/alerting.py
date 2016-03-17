@@ -18,13 +18,14 @@ class Alert(object):
         """
         Return True if an event has been sent
         """
+
         self.places.sync()
 
         alive_sensors = self.sensors.check(self.places.sensors)
         print "Alive sensors", alive_sensors
 
         events_sensors = get_sensors_with_events(
-            td=timedelta(minutes=1))
+            td=timedelta(seconds=50))
         print "Sensors with events", events_sensors
 
         if alive_sensors and sorted(alive_sensors) == sorted(events_sensors):
