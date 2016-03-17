@@ -20,6 +20,10 @@ class Places(object):
             self.sync()
 
     def sync(self):
+        places_file = os.path.join(
+            settings.CACHE_DIR,
+            'places.json'
+        )
         url = os.path.join(
             settings.PHEROMON_API_BASE,
             'allPlacesInfos'
@@ -27,7 +31,7 @@ class Places(object):
         resp = requests.get(url)
         if resp.status_code == 200:
             make_cache_dir()
-            f = open(settings.PLACES_FILE, 'w')
+            f = open(places_file, 'w')
             self.places = resp.json()
             self.sensors = list(itertools.chain(
                 *[k["sensor_uids"] for k in self.places]))
