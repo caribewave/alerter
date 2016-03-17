@@ -8,8 +8,8 @@ def run(**kwargs):
     while True:
         has_alert = alert.call()
         if has_alert:
-            print 'Alert sent, sleep 3 minutes'
-            time.sleep(180)
+            print 'Alert sent, sleep 60 secondes'
+            time.sleep(60)
         else:
             print "Sleep 3 secondes"
             time.sleep(3)
