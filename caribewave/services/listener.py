@@ -20,18 +20,14 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(settings.MQTT_SENSORS_TOPIC_DEBUG)
     else:
         client.subscribe(settings.MQTT_SENSORS_TOPIC)
-    client.subscribe('cmdResult/#')
 
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-    if msg.topic.startswith('measurement'):
-        sensor_uid = get_sensor_uid_from_topic(msg.topic)
-        userdata["persister"].add_events(
-            json.loads(msg.payload),
-            sensor_uid=sensor_uid)
-    elif msg.topic.startswith(''):
-        pass
+    sensor_uid = get_sensor_uid_from_topic(msg.topic)
+    userdata["persister"].add_events(
+        json.loads(msg.payload),
+        sensor_uid=sensor_uid)
 
 
 def run(debug=False):
@@ -53,14 +49,7 @@ def run(debug=False):
         print "Connect to {}".format(settings.MQTT_HOST)
         client.connect(settings.MQTT_HOST, 1883, 60)
 
-    client.publish('b827eb7352d6', 'status', qos=0)
     client.loop_forever()
-    """
-    while True:
-        client.loop(timeout=100)
-        print 'Publish to status'
-        #client.publish('all', 'status', qos=0)
-    """
 
 
 def get_argparser():
